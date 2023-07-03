@@ -1,15 +1,24 @@
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+
 public class Main {
     public static void main(String[] args) throws Exception{
-        Callable<Double> s = new Callable<Double>() {
-            @Override
-            public Double call() throws Exception {
-                System.out.println("Hello");
-                return null;
-            }
-        };
+        //make one main object the threads act on
+        MainCharacter m = new MainCharacter();
+
+        //make the runnable objects
+        PrintStuff p = new PrintStuff(m);
+        PrintOtherStuffIg pO = new PrintOtherStuffIg(m);
+
+        //create threads
+        Thread thread = new Thread(p, "Thread one");
+        Thread thread2 = new Thread(pO, "Thread two");
+
+        //run threads
+        thread.start();
+        thread2.start();
+
+        thread2.join();
+        //Idk this was just funny to me
+        System.out.println("bootylicker");
 
     }
 
